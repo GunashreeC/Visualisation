@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="css/main.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+    d3.csv('result.csv').then(function (data) {
+      
+      var svg_height = 500;
+      var svg_width = 960;
+
+      var svg_focusCtx = d3.select("body").append("svg")
+        .attr("width", svg_width)
+        .attr("height", svg_height);
+      
+      var margin2_focusCtx = { top: 430, right: 20, bottom: 30, left: 40 };
+      var margin_focusCtx = { top: 20, right: 20, bottom: 110, left: 40 };
+
+      var height2_focusCtx = svg_height - margin2_focusCtx.top - margin2_focusCtx.bottom;
+      var height_focusCtx = svg_height - margin_focusCtx.top - margin_focusCtx.bottom;
+      var width_focusCtx = svg_width - margin_focusCtx.left - margin_focusCtx.right;
+
+      data.forEach(function (d) {
+        d.date = new Date(d.date);
+        d.crimes = d.crimes;
+      });
+      
+      // Focus Context for y, y2, x, x2
+      var y2_focusCtx = d3.scaleLinear().range([height2_focusCtx, 0]);
+
+      var y_focusCtx = d3.scaleLinear().range([height_focusCtx, 0]);
+
+      var x2_focusCtx = d3.scaleTime().range([0, width_focusCtx]);
+
+      var x_focusCtx = d3.scaleTime().range([0, width_focusCtx]);
+
+      // Focus Context for the Axes x, x2, y
+      var yAxis_focusCtx = d3.axisLeft(y_focusCtx);
+
+      var xAxis2_focusCtx = d3.axisBottom(x2_focusCtx);
+
+      var xAxis_focusCtx = d3.axisBottom(x_focusCtx);
+      
+
+      var zoom_focusCtx = d3.zoom()
+        .scaleExtent([1, Infinity])
+        .translateExtent([[0, 0], [width_focusCtx, height_focusCtx]])
+        .extent([[0, 0], [width_focusCtx, height_focusCtx]])
+        .on("zoom", zoomed);
+
+      var brush_focusCtx = d3.brushX()
+        .extent([[0, 0], [width_focusCtx, height2_focusCtx]])
+        .on("brush end", brushed);
+
+      var area2 = d3.area()
+        .curve(d3.curveMonotoneX)
+        .x(function (d) { return x2_focusCtx(d.date); })
+        .y0(height2_focusCtx)
+        .y1(function (d) { return y2_focusCtx(d.crimes); });
+      
+      var area = d3.area()
+        .curve(d3.curveMonotoneX)
+        .x(function (d) { return x_focusCtx(d.date); })
+        .y0(height_focusCtx)
+        .y1(function (d) { return y_focusCtx(d.crimes); });
+
+      
+      svg_focusCtx.append("defs").append("clipPath")
+        .attr("id", "clip")
+        .append("rect")
+        .attr("width", width_focusCtx)
+        .attr("height", height_focusCtx);
+
+      var context = svg_focusCtx.append("g")
+        .attr("transform", "translate(" + margin2_focusCtx.left + "," + margin2_focusCtx.top + ")");
+
+      var focus_focusCtx = svg_focusCtx.append("g")
+        .attr("transform", "translate(" + margin_focusCtx.left + "," + margin_focusCtx.top + ")");
+
+      x_focusCtx.domain(d3.extent(data, function (d) { return d.date; }));
+      y_focusCtx.domain([0, d3.max(data, function (d) { return d.crimes; })]);
+      x2_focusCtx.domain(x_focusCtx.domain());
+      y2_focusCtx.domain(y_focusCtx.domain());
+
+      focus_focusCtx.append("path")
+        .datum(data)
+        .attr("class", "area")
+        .attr("d", area);
+
+      focus_focusCtx.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height_focusCtx + ")")
+        .call(xAxis_focusCtx);
+
+      focus_focusCtx.append("g")
+        .attr("class", "axis axis--y")
+        .call(yAxis_focusCtx);
+
+      focus_focusCtx
+        .append("text")
+        .attr("class", "label")
+        .attr("x", -(height_focusCtx - margin_focusCtx.bottom - margin_focusCtx.top) / 600)
+        .attr("y", margin_focusCtx.bottom / 300)
+        .attr("text-anchor", "middle")
+        .text("Crimes");
+
+      context.append("path")
+        .datum(data)
+        .attr("class", "area")
+        .attr("d", area2);
+
+      context.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height2_focusCtx + ")")
+        .call(xAxis2_focusCtx);
+
+      context.append("g")
+        .attr("class", "brush")
+        .call(brush_focusCtx)
+        .call(brush_focusCtx.move, x_focusCtx.range());
+
+      svg_focusCtx.append("rect")
+        .attr("class", "zoom")
+        .attr("width", width_focusCtx)
+        .attr("height", height_focusCtx)
+        .attr("transform", "translate(" + margin_focusCtx.left + "," + margin_focusCtx.top + ")")
+        .call(zoom_focusCtx);
+
+      function brushed(e, d) {
+        if (e.sourceEvent && e.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+        var s = e.selection || x2_focusCtx.range();
+        x_focusCtx.domain(s.map(x2_focusCtx.invert, x2_focusCtx));
+        focus_focusCtx.select(".area").attr("d", area);
+        focus_focusCtx.select(".axis--x").call(xAxis_focusCtx);
+      }
+
+      function zoomed(e, d) {
+        if (e.sourceEvent && e.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+        var t = e.transform;
+        x_focusCtx.domain(t.rescaleX(x2_focusCtx).domain());
+
+        focus_focusCtx.select(".area").attr("d", area);
+        focus_focusCtx.select(".axis--x").call(xAxis_focusCtx);
+        context.select(".brush").call(brush_focusCtx.move, x_focusCtx.range().map(t.invertX, t));
+      }
+
+    });
+  </script>
+  <br />
+
+  <h3 style="flex-direction: column;"> What is the Trend in Crimes during 2014 to 2023? </h3>
+  <p> Double-click to see the larger Chart at the top! To zoom in, use the Area Chart at the bottom. </p>
+
+</body>
+
+</html>

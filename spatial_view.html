@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.css">
+    <script src="https://unpkg.com/leaflet.markercluster@1.0.4/dist/leaflet.markercluster.js"></script>
+    
+
+    <style>
+        #map { 
+            position: absolute;
+            width: 60%;
+            height: 68%; 
+        }
+
+        #plot {
+            position: absolute;
+            left: 62%;
+            width: 38%;
+            height: 88%; 
+        }
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 90px;
+            height: 40px;
+            padding: 2px;
+            font: 15px sans-serif;
+            background: rgb(235, 237, 240);
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        .sv_1 {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .svg_p {
+            color: rgb(110, 108, 108);
+            text-align: center;
+            margin: 2em 0;
+        }
+    
+    </style>
+
+</head>
+<body>
+    <div class="spatial_view">
+        <div class = "sv_1">
+            <h1 style="flex-direction: column;padding-bottom:6px ">Trend in Chicago Crimes across different Localities during 2014 - 2023</h1>
+            <h4>The map and bar chart visualize Chicago crime trends across different locations over time. The map depicts clusters with corresponding location counts, while the bar chart initially shows the overall Chicago trend. However, zooming into specific clusters and selecting a location reveals the trend for that particular area.</h4>  
+            <p class="svg_p">** Zoom in on clusters to reveal location pins. Hover over a pin to view the location's name, total crime count, and click to explore crime trends over time. Hover over a bar in the chart to see the total number of crimes for that year at that location. **</p>
+        </div>
+        <div class = "sv_2">
+            <div id="map"></div>
+            <div id="plot"></div>
+        </div>
+        <div class = "tooltip" style = "opacity: 0"></div>
+    </div>
+    
+</body>
+
+<script src="js/us-states.js"></script>
+<script src="js/spatial.js"></script>
+
+</html>

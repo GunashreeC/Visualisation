@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+
+    .crimeRadioButton {
+      margin-right: 10px;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <script type="text/javascript" src="/LINKED VIZ 2/spec.js"></script>
+</head>
+
+
+
+
+
+
+<body>
+
+  <h1>Select Crime Type:</h1>
+
+  <form id="myForm">
+    <input type="radio" id="Crime_all" class="crimeRadioButton" name="crimeType" value="Crime_all">
+    <label for="Crime_all">All Crimes</label>
+  
+    <input type="radio" id="Crime_Assault" class="crimeRadioButton" name="crimeType" value="ASSAULT">
+    <label for="crimeAssault">Crime Assault</label>
+
+    <input type="radio" id="crimeBattery" class="crimeRadioButton" name="crimeType" value="BATTERY">
+    <label for="crimeBattery">Battery</label>
+
+    <input type="radio" id="crimeBurglary" class="crimeRadioButton" name="crimeType" value="BURGLARY">
+    <label for="crimeBurglary">Burglary</label>
+
+    <input type="radio" id="crimecriminaldamage" class="crimeRadioButton" name="crimeType" value="CRIMINAL DAMAGE">
+    <label for="crimecriminaldamage">Criminal Damage</label>
+
+    <input type="radio" id="crimeDeceptivePractice" class="crimeRadioButton" name="crimeType" value="DECEPTIVE PRACTICE">
+    <label for="crimeDeceptivePractice">Deceptive Practice</label>
+
+    <input type="radio" id="crimeMotorVehicleTheft" class="crimeRadioButton" name="crimeType" value="MOTOR VEHICLE THEFT">
+    <label for="crimeMotorVehicleTheft">Motor Vehicle Theft</label>
+
+    <input type="radio" id="crimeNarcotics" class="crimeRadioButton" name="crimeType" value="NARCOTICS">
+    <label for="crimeNarcotics">Narcotics</label>
+
+    <input type="radio" id="crimeRobbery" class="crimeRadioButton" name="crimeType" value="ROBBERY">
+    <label for="crimeRobbery">Robbery</label>
+
+    <input type="radio" id="crimeTheft" class="crimeRadioButton" name="crimeType" value="THEFT">
+    <label for="crimeTheft">Theft</label>
+
+    <input type="radio" id="crimeOther" class="crimeRadioButton" name="crimeType" value="OTHER OFFENSE">
+    <label for="crimeOther">Other</label>
+
+    <br>
+    <br>
+    <input type="submit" value="Show Visualization">
+  </form>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevents the default form submission
+      
+      // Get the selected radio button value
+      var selectedOption = document.querySelector('input[name="crimeType"]:checked');
+      
+      if (selectedOption) {
+        // Redirect based on the selected radio button value
+        if (selectedOption.value === "Crime_all") {
+          window.location.href = "/LINKED VIZ 2/Crime_all.html"; // Redirect to page1.html
+        } else if (selectedOption.value === "ASSAULT") {
+          window.location.href = "/LINKED VIZ 2/Crime_ASSAULT.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "BATTERY") {
+          window.location.href = "/LINKED VIZ 2/Crime_BATTERY.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "BURGLARY") {
+          window.location.href = "/LINKED VIZ 2/Crime_BURGLARY.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "CRIMINAL DAMAGE") {
+          window.location.href = "/LINKED VIZ 2/Crime_CRIMINAL DAMAGE.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "DECEPTIVE PRACTICE") {
+          window.location.href = "/LINKED VIZ 2/Crime_DECEPTIVE PRACTICE.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "MOTOR VEHICLE THEFT") {
+          window.location.href = "/LINKED VIZ 2/Crime_MOTOR VEHICLE THEFT.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "NARCOTICS") {
+          window.location.href = "/LINKED VIZ 2/Crime_NARCOTICS.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "ROBBERY") {
+          window.location.href = "/LINKED VIZ 2/Crime_ROBBERY.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "THEFT") {
+          window.location.href = "/LINKED VIZ 2/Crime_THEFT.html"; // Redirect to page2.html
+        }
+        else if (selectedOption.value === "OTHER OFFENSE") {
+          window.location.href = "/LINKED VIZ 2/Crime_OTHER OFFENSE.html"; // Redirect to page2.html
+        }
+      } else {
+        // If no option is selected, display an alert or handle accordingly
+        alert("Please select an option.");
+      }
+    });
+  </script>
+  
+
+
+
+  <!-- Add more radio buttons as needed 
+
+  <br>
+  <button onclick="updateVisualization()">Show Visualization</button>
+
+  <div id="vis"></div>
+  -->
+
+  <script>
+    var embedOpt = {"mode": "vega-lite"};
+    var currentSpec = spec;  // Store the current visualization spec
+
+    function showError(el, error){
+      el.innerHTML = ('<div style="color:red;">'
+                      + '<p>JavaScript Error: ' + error.message + '</p>'
+                      + "<p>This usually means there's a typo in your chart specification. "
+                      + "See the javascript console for the full traceback.</p>"
+                      + '</div>');
+      throw error;
+    }
+
+    function updateVisualization() 
+    {
+      var selectedRadioButton = document.querySelector('input[name="crimeType"]:checked');
+      if (!selectedRadioButton) {
+        alert('Please select a crime type');
+        return;
+      }
+
+      var selectedCrimeType = selectedRadioButton.value;
+      var htmlFileName = 'Crime_'+selectedCrimeType+'.html';
+
+      console.log("Selected Crime Type:", selectedCrimeType);
+      console.log("HTML File Name:", htmlFileName);
+
+      // Load the corresponding HTML file for the selected crime type
+      fetch(htmlFileName)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch HTML file: ' + response.status);
+          }
+          return response.text();
+        })
+        .then(html => {
+          // Extract the visualization specification from the loaded HTML file
+          console.log('HTML file loaded'); 
+
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(html, 'text/html');
+          var scriptTag = doc.querySelector('script');
+          var specString = scriptTag.innerHTML;
+          currentSpec = JSON.parse(specString);
+
+          // Re-render the visualization with the updated specification
+          vegaEmbed("#vis", currentSpec, embedOpt)
+            .catch(error => showError(el, error));
+        })
+        .catch(error => console.error('Error loading HTML file:', error));
+    }
+
+    // Initial rendering with default spec
+    const el = document.getElementById('vis');
+    vegaEmbed("#vis", spec, embedOpt)
+       .catch(error => showError(el, error));
+  </script>
+</body>
+</html>

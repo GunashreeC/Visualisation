@@ -1,0 +1,162 @@
+.linkedview {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.focus_context {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1, h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgb(35, 35, 85);
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav img {
+    width: 80px;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3vw 11vw;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    width: 100%;
+    background-color: LightSeaGreen;
+}
+
+nav .navigation ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav .navigation ul li {
+    list-style: none;
+    margin-left: 20px;
+}
+
+nav .navigation ul li a {
+    text-decoration: none;
+    color: #001e62;
+    font-weight: 600;
+    font-size: 19px;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+}
+
+nav .navigation ul li a:hover {
+    color: HotPink;
+}
+
+#BarChart {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+}
+#Home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    position: relative;
+    overflow: hidden;
+    color: white; /* Change text color to white */
+}
+
+#Home h1.display-4 {
+    color: white;
+}
+
+#Home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('City.jpg'); /* Update with the correct path */
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+.home_div {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    position: relative;
+    z-index: 1; /* Ensures text appears above the blurred image */
+}
+
+.area {
+	fill: #575757;
+	clip-path: url(#clip);
+}
+  
+.zoom {
+	cursor: move;
+	fill: none;
+	pointer-events: all;
+}
+
+.spatial_view {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#map { 
+    position: absolute;
+    width: 70%;
+    height: 40%; 
+}
+
+#plot {
+    position: absolute;
+    left: 72%;
+    width: 28%;
+    height: 40%; 
+}
+
+.svg_p {
+    color: rgb(110, 108, 108);
+    text-align: center;
+    margin: 1em 0;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+
+    .crimeRadioButton {
+      margin-right: 10px;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <script type="text/javascript" src="spec.js"></script>
+</head>
+<body>
+    <h1>SELECT MONTH AND YEAR</h1>
+      <form id="myForm">
+        <label for="month">Select Month:</label>
+        <select id="month" name="month">
+          <option value="SEL">Select</option>
+          <option value="M1">January</option>
+          <option value="M2">February</option>
+          <option value="M3">March</option>
+          <option value="M4">April</option>
+          <option value="M5">May</option>
+          <option value="M6">June</option>
+          <option value="M7">July</option>
+          <option value="M8">August</option>
+          <option value="M9">September</option>
+          <option value="M10">October</option>
+          <option value="M11">November</option>
+          <option value="M12">December</option>
+
+
+          <!-- Add other months as options -->
+          <!-- For brevity, a few months are included here -->
+        </select>
+    <br>
+    <br>
+        <label for="year">Select Year:</label>
+        <select id="year" name="year">
+          <option value="SEL">Select</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+          <!-- Add other years as options -->
+          <!-- For brevity, a few years are included here -->
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Submit" onclick="redirectToPage(event)">
+    </form>
+
+    <script>
+      function redirectToPage(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        var selectedMonth = document.getElementById('month').value;
+        var selectedYear = document.getElementById('year').value;
+
+        if (selectedMonth == 'SEL' && selectedYear == 'SEL') {
+          var targetURL = 'Linked_Y.html';
+          window.location.href = targetURL;
+        } 
+
+        else if (selectedMonth == 'SEL') {
+          var targetURL = 'Linked_Y' + selectedYear +'.html';
+          window.location.href = targetURL;
+        } 
+
+        else {
+
+          var paragraph = document.createElement('p');
+          var text = document.createTextNode('Selected Year: ' + selectedYear + ', Selected Month: ' + selectedMonth);
+          paragraph.appendChild(text);
+          var targetURL = 'Linked_Y' + selectedYear + '_' + selectedMonth + '.html';
+          window.location.href = targetURL;
+        }
+      
+    }
+    </script>
+
+  
+</body>
+</html>

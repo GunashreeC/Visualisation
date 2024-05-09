@@ -1,6 +1,4 @@
-# Assignment 4 - CS424 - Visualization & Visual Analytics (Fall 2023)
-
-## Team: The Scranton Strangler's!
+# CS424 - Visualization & Visual Analytics (Fall 2023)
 
 ---
 
@@ -108,5 +106,5 @@ Overall, the linked brushing between focus and context charts and the flexible p
 **Interaction Mechanisms and Methods:** Interactive features include zooming into map clusters to reveal individual incidents, hovering over map pins for detailed crime counts and information, and hovering over the bar chart to view yearly crime statistics.
 
 ### Project Links:
-**GitHub** - https://github.com/amanlaiq/Visualisation.github.io
-**Live Web Hosted** - https://amanlaiq.github.io/Visualisation.github.io/
+
+**Live Web Hosted** - https://GunashreeC.github.io/Visualisation/
